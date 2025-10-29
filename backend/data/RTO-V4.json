@@ -1,0 +1,1053 @@
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "chem": "http://example.org/chemical#",
+    "mech": "http://example.org/mechanism#",
+    "equip": "http://example.org/equipment#",
+    "proc": "http://example.org/process#",
+    "rto": "http://example.org/rto_optimization#",
+    
+    "comment": {"@id": "rdfs:comment", "@type": "xsd:string"},
+    "versionInfo": {"@id": "owl:versionInfo", "@type": "xsd:string"},
+    "label": {"@id": "rdfs:label", "@container": "@language"},
+    "subClassOf": {"@id": "rdfs:subClassOf", "@type": "@id"},
+    
+    "ChemicalSubstance": "chem:ChemicalSubstance",
+    "RawMaterial": "chem:RawMaterial",
+    "Catalyst": "chem:Catalyst",
+    "Product": "chem:Product",
+    "ByProduct": "chem:ByProduct",
+    "Intermediate": "chem:Intermediate",
+    
+    "hasMolecularWeight": {"@id": "chem:hasMolecularWeight", "@type": "xsd:float"},
+    "hasCASNumber": {"@id": "chem:hasCASNumber", "@type": "xsd:string"},
+    "hasPurity": {"@id": "chem:hasPurity", "@type": "xsd:float"},
+    "hasState": {"@id": "chem:hasState", "@type": "xsd:string"},
+    "hasDensity": {"@id": "chem:hasDensity", "@type": "xsd:float"},
+    
+    "Mechanism": "mech:Mechanism",
+    "MicroscopicMechanism": "mech:MicroscopicMechanism",
+    "MesoscopicMechanism": "mech:MesoscopicMechanism",
+    "MacroscopicMechanism": "mech:MacroscopicMechanism",
+    "ReactionKinetics": "mech:ReactionKinetics",
+    "MolecularDynamics": "mech:MolecularDynamics",
+    "PhaseEquilibrium": "mech:PhaseEquilibrium",
+    "MassTransfer": "mech:MassTransfer",
+    "HeatTransfer": "mech:HeatTransfer",
+    "FluidDynamics": "mech:FluidDynamics",
+    
+    "hasScale": {"@id": "mech:hasScale", "@type": "xsd:string"},
+    "hasGoverningEquation": {"@id": "mech:hasGoverningEquation", "@type": "xsd:string"},
+    "hasApplicability": {"@id": "mech:hasApplicability", "@type": "xsd:string"},
+    "hasAccuracy": {"@id": "mech:hasAccuracy", "@type": "xsd:float"},
+    "hasComputationalCost": {"@id": "mech:hasComputationalCost", "@type": "xsd:string"},
+    
+    "Equipment": "equip:Equipment",
+    "Reactor": "equip:Reactor",
+    "HeatExchanger": "equip:HeatExchanger",
+    "Separator": "equip:Separator",
+    "Pump": "equip:Pump",
+    "Compressor": "equip:Compressor",
+    "DistillationColumn": "equip:DistillationColumn",
+    "Centrifuge": "equip:Centrifuge",
+    "ShellAndTube": "equip:ShellAndTube",
+    "PlateHeatExchanger": "equip:PlateHeatExchanger",
+    "CSTR": "equip:CSTR",
+    "PFR": "equip:PFR",
+    
+    "hasVolume": {"@id": "equip:hasVolume", "@type": "xsd:float"},
+    "hasMaterial": {"@id": "equip:hasMaterial", "@type": "xsd:string"},
+    "hasOperatingPressure": {"@id": "equip:hasOperatingPressure", "@type": "xsd:float"},
+    "hasOperatingTemperature": {"@id": "equip:hasOperatingTemperature", "@type": "xsd:float"},
+    "hasEfficiency": {"@id": "equip:hasEfficiency", "@type": "xsd:float"},
+    
+    "Process": "proc:Process",
+    "MTOProcess": "proc:MTOProcess",
+    "CrackingProcess": "proc:CrackingProcess",
+    "PolymerizationProcess": "proc:PolymerizationProcess",
+    "DistillationProcess": "proc:DistillationProcess",
+    "HydrogenationProcess": "proc:HydrogenationProcess",
+    
+    "hasYield": {"@id": "proc:hasYield", "@type": "xsd:float"},
+    "hasEnergyConsumption": {"@id": "proc:hasEnergyConsumption", "@type": "xsd:float"},
+    "hasThroughput": {"@id": "proc:hasThroughput", "@type": "xsd:float"},
+    "hasCycleTime": {"@id": "proc:hasCycleTime", "@type": "xsd:float"},
+    "hasSafetyLevel": {"@id": "proc:hasSafetyLevel", "@type": "xsd:string"},
+    
+    "RTOOptimization": "rto:RTOOptimization",
+    "ProcessVariable": "rto:ProcessVariable",
+    "Constraint": "rto:Constraint",
+    "Setpoint": "rto:Setpoint",
+    "ModelParameter": "rto:ModelParameter",
+    "ObjectiveFunction": "rto:ObjectiveFunction",
+    "OptimizationAlgorithm": "rto:OptimizationAlgorithm",
+    "OptimalSetpoint": "rto:OptimalSetpoint",
+    "OptimizationWarning": "rto:OptimizationWarning",
+    "OptimizationError": "rto:OptimizationError",
+    
+    "hasOptimizationId": {"@id": "rto:hasOptimizationId", "@type": "xsd:string"},
+    "hasTimestamp": {"@id": "rto:hasTimestamp", "@type": "xsd:dateTime"},
+    "hasVersion": {"@id": "rto:hasVersion", "@type": "xsd:string"},
+    "hasStatus": {"@id": "rto:hasStatus", "@type": "xsd:string"},
+    "hasExecutionTimeMs": {"@id": "rto:hasExecutionTimeMs", "@type": "xsd:integer"},
+    "hasVariableId": {"@id": "rto:hasVariableId", "@type": "xsd:string"},
+    "hasTag": {"@id": "rto:hasTag", "@type": "xsd:string"},
+    "hasValue": {"@id": "rto:hasValue", "@type": "xsd:float"},
+    "hasUnit": {"@id": "rto:hasUnit", "@type": "xsd:string"},
+    "hasDataQuality": {"@id": "rto:hasDataQuality", "@type": "xsd:float"},
+    "hasLowerBound": {"@id": "rto:hasLowerBound", "@type": "xsd:float"},
+    "hasUpperBound": {"@id": "rto:hasUpperBound", "@type": "xsd:float"},
+    "hasConstraintType": {"@id": "rto:hasConstraintType", "@type": "xsd:string"},
+    "hasCurrentValue": {"@id": "rto:hasCurrentValue", "@type": "xsd:float"},
+    "hasParamId": {"@id": "rto:hasParamId", "@type": "xsd:string"},
+    "hasConfidence": {"@id": "rto:hasConfidence", "@type": "xsd:float"},
+    "hasExpression": {"@id": "rto:hasExpression", "@type": "xsd:string"},
+    "hasCurrentObjectiveValue": {"@id": "rto:hasCurrentObjectiveValue", "@type": "xsd:float"},
+    "hasAlgorithmName": {"@id": "rto:hasAlgorithmName", "@type": "xsd:string"},
+    "hasMaxIterations": {"@id": "rto:hasMaxIterations", "@type": "xsd:integer"},
+    "hasTolerance": {"@id": "rto:hasTolerance", "@type": "xsd:float"},
+    "hasOptimalValue": {"@id": "rto:hasOptimalValue", "@type": "xsd:float"},
+    "hasDeltaFromCurrent": {"@id": "rto:hasDeltaFromCurrent", "@type": "xsd:float"},
+    "hasConfidenceLevel": {"@id": "rto:hasConfidenceLevel", "@type": "xsd:float"},
+    "hasReason": {"@id": "rto:hasReason", "@type": "xsd:string"},
+    "hasDelta": {"@id": "rto:hasDelta", "@type": "xsd:float"},
+    "hasPotentialBenefit": {"@id": "rto:hasPotentialBenefit", "@type": "xsd:string"},
+    "hasMessage": {"@id": "rto:hasMessage", "@type": "xsd:string"},
+    "hasSeverity": {"@id": "rto:hasSeverity", "@type": "xsd:integer"},
+    "hasErrorMessage": {"@id": "rto:hasErrorMessage", "@type": "xsd:string"},
+    "hasSolutionSuggestion": {"@id": "rto:hasSolutionSuggestion", "@type": "xsd:string"},
+    
+    "isInputOf": {"@id": "chem:isInputOf", "@type": "@id"},
+    "isOutputOf": {"@id": "chem:isOutputOf", "@type": "@id"},
+    "usesEquipment": {"@id": "proc:usesEquipment", "@type": "@id"},
+    "governedBy": {"@id": "proc:governedBy", "@type": "@id"},
+    "implements": {"@id": "equip:implements", "@type": "@id"},
+    "appliesTo": {"@id": "mech:appliesTo", "@type": "@id"},
+    "belongsToProcess": {"@id": "rto:belongsToProcess", "@type": "@id"},
+    "usesModelParameter": {"@id": "rto:usesModelParameter", "@type": "@id"},
+    "hasProcessVariable": {"@id": "rto:hasProcessVariable", "@type": "@id"},
+    "hasConstraint": {"@id": "rto:hasConstraint", "@type": "@id"},
+    "hasSetpoint": {"@id": "rto:hasSetpoint", "@type": "@id"},
+    "hasObjectiveFunction": {"@id": "rto:hasObjectiveFunction", "@type": "@id"},
+    "usesAlgorithm": {"@id": "rto:usesAlgorithm", "@type": "@id"},
+    "producesOptimalSetpoint": {"@id": "rto:producesOptimalSetpoint", "@type": "@id"},
+    "hasWarning": {"@id": "rto:hasWarning", "@type": "@id"},
+    "hasError": {"@id": "rto:hasError", "@type": "@id"},
+    "basedOnMechanism": {"@id": "rto:basedOnMechanism", "@type": "@id"},
+    "monitorsEquipment": {"@id": "rto:monitorsEquipment", "@type": "@id"},
+    "involvesChemical": {"@id": "rto:involvesChemical", "@type": "@id"},
+    "measuredFrom": {"@id": "rto:measuredFrom", "@type": "@id"},
+    "controlsEquipment": {"@id": "rto:controlsEquipment", "@type": "@id"},
+    "derivedFromMechanism": {"@id": "rto:derivedFromMechanism", "@type": "@id"}
+  },
+  
+  "@graph": [
+    {
+      "@id": "",
+      "@type": "owl:Ontology",
+      "comment": "RTO优化本体 - 整合化学物质、机理、设备和工艺的完整RTO系统",
+      "versionInfo": "2.0"
+    },
+    
+    {
+      "@id": "chem:ChemicalSubstance",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "化学物质",
+        "en": "Chemical Substance"
+      }
+    },
+    
+    {
+      "@id": "chem:RawMaterial",
+      "@type": "owl:Class",
+      "subClassOf": "chem:ChemicalSubstance",
+      "label": {
+        "zh": "原料",
+        "en": "Raw Material"
+      }
+    },
+    
+    {
+      "@id": "chem:Catalyst",
+      "@type": "owl:Class",
+      "subClassOf": "chem:ChemicalSubstance",
+      "label": {
+        "zh": "催化剂",
+        "en": "Catalyst"
+      }
+    },
+    
+    {
+      "@id": "chem:Product",
+      "@type": "owl:Class",
+      "subClassOf": "chem:ChemicalSubstance",
+      "label": {
+        "zh": "产物",
+        "en": "Product"
+      }
+    },
+    
+    {
+      "@id": "chem:ByProduct",
+      "@type": "owl:Class",
+      "subClassOf": "chem:ChemicalSubstance",
+      "label": {
+        "zh": "副产物",
+        "en": "By-Product"
+      }
+    },
+    
+    {
+      "@id": "chem:Intermediate",
+      "@type": "owl:Class",
+      "subClassOf": "chem:ChemicalSubstance",
+      "label": {
+        "zh": "中间体",
+        "en": "Intermediate"
+      }
+    },
+    
+    {
+      "@id": "chem:hasMolecularWeight",
+      "@type": "owl:DatatypeProperty",
+      "domain": "chem:ChemicalSubstance",
+      "range": "xsd:float",
+      "label": {
+        "zh": "分子量",
+        "en": "has Molecular Weight"
+      }
+    },
+    
+    {
+      "@id": "chem:hasCASNumber",
+      "@type": "owl:DatatypeProperty",
+      "domain": "chem:ChemicalSubstance",
+      "range": "xsd:string",
+      "label": {
+        "zh": "CAS号",
+        "en": "has CAS Number"
+      }
+    },
+    
+    {
+      "@id": "chem:hasPurity",
+      "@type": "owl:DatatypeProperty",
+      "domain": "chem:ChemicalSubstance",
+      "range": "xsd:float",
+      "label": {
+        "zh": "纯度",
+        "en": "has Purity"
+      }
+    },
+    
+    {
+      "@id": "chem:hasState",
+      "@type": "owl:DatatypeProperty",
+      "domain": "chem:ChemicalSubstance",
+      "range": "xsd:string",
+      "label": {
+        "zh": "物态",
+        "en": "has State"
+      }
+    },
+    
+    {
+      "@id": "chem:hasDensity",
+      "@type": "owl:DatatypeProperty",
+      "domain": "chem:ChemicalSubstance",
+      "range": "xsd:float",
+      "label": {
+        "zh": "密度",
+        "en": "has Density"
+      }
+    },
+    
+    {
+      "@id": "mech:Mechanism",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "机理",
+        "en": "Mechanism"
+      }
+    },
+    
+    {
+      "@id": "mech:MicroscopicMechanism",
+      "@type": "owl:Class",
+      "subClassOf": "mech:Mechanism",
+      "label": {
+        "zh": "微观机理",
+        "en": "Microscopic Mechanism"
+      }
+    },
+    
+    {
+      "@id": "mech:MesoscopicMechanism",
+      "@type": "owl:Class",
+      "subClassOf": "mech:Mechanism",
+      "label": {
+        "zh": "介观机理",
+        "en": "Mesoscopic Mechanism"
+      }
+    },
+    
+    {
+      "@id": "mech:MacroscopicMechanism",
+      "@type": "owl:Class",
+      "subClassOf": "mech:Mechanism",
+      "label": {
+        "zh": "宏观机理",
+        "en": "Macroscopic Mechanism"
+      }
+    },
+    
+    {
+      "@id": "mech:ReactionKinetics",
+      "@type": "owl:Class",
+      "subClassOf": "mech:MicroscopicMechanism",
+      "label": {
+        "zh": "反应动力学",
+        "en": "Reaction Kinetics"
+      }
+    },
+    
+    {
+      "@id": "mech:MolecularDynamics",
+      "@type": "owl:Class",
+      "subClassOf": "mech:MicroscopicMechanism",
+      "label": {
+        "zh": "分子动力学",
+        "en": "Molecular Dynamics"
+      }
+    },
+    
+    {
+      "@id": "mech:PhaseEquilibrium",
+      "@type": "owl:Class",
+      "subClassOf": "mech:MesoscopicMechanism",
+      "label": {
+        "zh": "相平衡",
+        "en": "Phase Equilibrium"
+      }
+    },
+    
+    {
+      "@id": "mech:MassTransfer",
+      "@type": "owl:Class",
+      "subClassOf": "mech:MesoscopicMechanism",
+      "label": {
+        "zh": "传质",
+        "en": "Mass Transfer"
+      }
+    },
+    
+    {
+      "@id": "mech:HeatTransfer",
+      "@type": "owl:Class",
+      "subClassOf": "mech:MacroscopicMechanism",
+      "label": {
+        "zh": "传热",
+        "en": "Heat Transfer"
+      }
+    },
+    
+    {
+      "@id": "mech:FluidDynamics",
+      "@type": "owl:Class",
+      "subClassOf": "mech:MacroscopicMechanism",
+      "label": {
+        "zh": "流体动力学",
+        "en": "Fluid Dynamics"
+      }
+    },
+    
+    {
+      "@id": "mech:hasScale",
+      "@type": "owl:DatatypeProperty",
+      "domain": "mech:Mechanism",
+      "range": "xsd:string",
+      "label": {
+        "zh": "尺度",
+        "en": "has Scale"
+      }
+    },
+    
+    {
+      "@id": "mech:hasGoverningEquation",
+      "@type": "owl:DatatypeProperty",
+      "domain": "mech:Mechanism",
+      "range": "xsd:string",
+      "label": {
+        "zh": "控制方程",
+        "en": "has Governing Equation"
+      }
+    },
+    
+    {
+      "@id": "mech:hasApplicability",
+      "@type": "owl:DatatypeProperty",
+      "domain": "mech:Mechanism",
+      "range": "xsd:string",
+      "label": {
+        "zh": "适用范围",
+        "en": "has Applicability"
+      }
+    },
+    
+    {
+      "@id": "mech:hasAccuracy",
+      "@type": "owl:DatatypeProperty",
+      "domain": "mech:Mechanism",
+      "range": "xsd:float",
+      "label": {
+        "zh": "精度",
+        "en": "has Accuracy"
+      }
+    },
+    
+    {
+      "@id": "mech:hasComputationalCost",
+      "@type": "owl:DatatypeProperty",
+      "domain": "mech:Mechanism",
+      "range": "xsd:string",
+      "label": {
+        "zh": "计算成本",
+        "en": "has Computational Cost"
+      }
+    },
+    
+    {
+      "@id": "equip:Equipment",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "设备",
+        "en": "Equipment"
+      }
+    },
+    
+    {
+      "@id": "equip:Reactor",
+      "@type": "owl:Class",
+      "subClassOf": "equip:Equipment",
+      "label": {
+        "zh": "反应器",
+        "en": "Reactor"
+      }
+    },
+    
+    {
+      "@id": "equip:HeatExchanger",
+      "@type": "owl:Class",
+      "subClassOf": "equip:Equipment",
+      "label": {
+        "zh": "换热器",
+        "en": "Heat Exchanger"
+      }
+    },
+    
+    {
+      "@id": "equip:Separator",
+      "@type": "owl:Class",
+      "subClassOf": "equip:Equipment",
+      "label": {
+        "zh": "分离器",
+        "en": "Separator"
+      }
+    },
+    
+    {
+      "@id": "equip:Pump",
+      "@type": "owl:Class",
+      "subClassOf": "equip:Equipment",
+      "label": {
+        "zh": "泵",
+        "en": "Pump"
+      }
+    },
+    
+    {
+      "@id": "equip:Compressor",
+      "@type": "owl:Class",
+      "subClassOf": "equip:Equipment",
+      "label": {
+        "zh": "压缩机",
+        "en": "Compressor"
+      }
+    },
+    
+    {
+      "@id": "equip:DistillationColumn",
+      "@type": "owl:Class",
+      "subClassOf": "equip:Separator",
+      "label": {
+        "zh": "精馏塔",
+        "en": "Distillation Column"
+      }
+    },
+    
+    {
+      "@id": "equip:Centrifuge",
+      "@type": "owl:Class",
+      "subClassOf": "equip:Separator",
+      "label": {
+        "zh": "离心机",
+        "en": "Centrifuge"
+      }
+    },
+    
+    {
+      "@id": "equip:ShellAndTube",
+      "@type": "owl:Class",
+      "subClassOf": "equip:HeatExchanger",
+      "label": {
+        "zh": "管壳式换热器",
+        "en": "Shell and Tube Heat Exchanger"
+      }
+    },
+    
+    {
+      "@id": "equip:PlateHeatExchanger",
+      "@type": "owl:Class",
+      "subClassOf": "equip:HeatExchanger",
+      "label": {
+        "zh": "板式换热器",
+        "en": "Plate Heat Exchanger"
+      }
+    },
+    
+    {
+      "@id": "equip:CSTR",
+      "@type": "owl:Class",
+      "subClassOf": "equip:Reactor",
+      "label": {
+        "zh": "连续搅拌釜反应器",
+        "en": "CSTR"
+      }
+    },
+    
+    {
+      "@id": "equip:PFR",
+      "@type": "owl:Class",
+      "subClassOf": "equip:Reactor",
+      "label": {
+        "zh": "平推流反应器",
+        "en": "PFR"
+      }
+    },
+    
+    {
+      "@id": "equip:hasVolume",
+      "@type": "owl:DatatypeProperty",
+      "domain": "equip:Equipment",
+      "range": "xsd:float",
+      "label": {
+        "zh": "体积",
+        "en": "has Volume"
+      }
+    },
+    
+    {
+      "@id": "equip:hasMaterial",
+      "@type": "owl:DatatypeProperty",
+      "domain": "equip:Equipment",
+      "range": "xsd:string",
+      "label": {
+        "zh": "材质",
+        "en": "has Material"
+      }
+    },
+    
+    {
+      "@id": "equip:hasOperatingPressure",
+      "@type": "owl:DatatypeProperty",
+      "domain": "equip:Equipment",
+      "range": "xsd:float",
+      "label": {
+        "zh": "操作压力",
+        "en": "has Operating Pressure"
+      }
+    },
+    
+    {
+      "@id": "equip:hasOperatingTemperature",
+      "@type": "owl:DatatypeProperty",
+      "domain": "equip:Equipment",
+      "range": "xsd:float",
+      "label": {
+        "zh": "操作温度",
+        "en": "has Operating Temperature"
+      }
+    },
+    
+    {
+      "@id": "equip:hasEfficiency",
+      "@type": "owl:DatatypeProperty",
+      "domain": "equip:Equipment",
+      "range": "xsd:float",
+      "label": {
+        "zh": "效率",
+        "en": "has Efficiency"
+      }
+    },
+    
+    {
+      "@id": "proc:Process",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "工艺",
+        "en": "Process"
+      }
+    },
+    
+    {
+      "@id": "proc:MTOProcess",
+      "@type": "owl:Class",
+      "subClassOf": "proc:Process",
+      "label": {
+        "zh": "甲醇制烯烃工艺",
+        "en": "MTO Process"
+      }
+    },
+    
+    {
+      "@id": "proc:CrackingProcess",
+      "@type": "owl:Class",
+      "subClassOf": "proc:Process",
+      "label": {
+        "zh": "裂解工艺",
+        "en": "Cracking Process"
+      }
+    },
+    
+    {
+      "@id": "proc:PolymerizationProcess",
+      "@type": "owl:Class",
+      "subClassOf": "proc:Process",
+      "label": {
+        "zh": "聚合工艺",
+        "en": "Polymerization Process"
+      }
+    },
+    
+    {
+      "@id": "proc:DistillationProcess",
+      "@type": "owl:Class",
+      "subClassOf": "proc:Process",
+      "label": {
+        "zh": "精馏工艺",
+        "en": "Distillation Process"
+      }
+    },
+    
+    {
+      "@id": "proc:HydrogenationProcess",
+      "@type": "owl:Class",
+      "subClassOf": "proc:Process",
+      "label": {
+        "zh": "加氢工艺",
+        "en": "Hydrogenation Process"
+      }
+    },
+    
+    {
+      "@id": "proc:hasYield",
+      "@type": "owl:DatatypeProperty",
+      "domain": "proc:Process",
+      "range": "xsd:float",
+      "label": {
+        "zh": "收率",
+        "en": "has Yield"
+      }
+    },
+    
+    {
+      "@id": "proc:hasEnergyConsumption",
+      "@type": "owl:DatatypeProperty",
+      "domain": "proc:Process",
+      "range": "xsd:float",
+      "label": {
+        "zh": "能耗",
+        "en": "has Energy Consumption"
+      }
+    },
+    
+    {
+      "@id": "proc:hasThroughput",
+      "@type": "owl:DatatypeProperty",
+      "domain": "proc:Process",
+      "range": "xsd:float",
+      "label": {
+        "zh": "处理量",
+        "en": "has Throughput"
+      }
+    },
+    
+    {
+      "@id": "proc:hasCycleTime",
+      "@type": "owl:DatatypeProperty",
+      "domain": "proc:Process",
+      "range": "xsd:float",
+      "label": {
+        "zh": "周期时间",
+        "en": "has Cycle Time"
+      }
+    },
+    
+    {
+      "@id": "proc:hasSafetyLevel",
+      "@type": "owl:DatatypeProperty",
+      "domain": "proc:Process",
+      "range": "xsd:string",
+      "label": {
+        "zh": "安全等级",
+        "en": "has Safety Level"
+      }
+    },
+    
+    {
+      "@id": "rto:RTOOptimization",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "RTO优化",
+        "en": "RTO Optimization"
+      },
+      "comment": "实时优化系统，基于工艺模型和实时数据进行优化计算"
+    },
+    
+    {
+      "@id": "rto:ProcessVariable",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "过程变量",
+        "en": "Process Variable"
+      },
+      "comment": "工艺过程中可测量或可控制的变量"
+    },
+    
+    {
+      "@id": "rto:Constraint",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "约束",
+        "en": "Constraint"
+      },
+      "comment": "优化问题的约束条件"
+    },
+    
+    {
+      "@id": "rto:Setpoint",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "设定值",
+        "en": "Setpoint"
+      },
+      "comment": "过程变量的目标设定值"
+    },
+    
+    {
+      "@id": "rto:ModelParameter",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "模型参数",
+        "en": "Model Parameter"
+      },
+      "comment": "工艺模型的参数"
+    },
+    
+    {
+      "@id": "rto:ObjectiveFunction",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "目标函数",
+        "en": "Objective Function"
+      },
+      "comment": "优化问题的目标函数"
+    },
+    
+    {
+      "@id": "rto:OptimizationAlgorithm",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "优化算法",
+        "en": "Optimization Algorithm"
+      },
+      "comment": "用于求解优化问题的算法"
+    },
+    
+    {
+      "@id": "rto:OptimalSetpoint",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "最优设定值",
+        "en": "Optimal Setpoint"
+      },
+      "comment": "优化计算得到的最优设定值"
+    },
+    
+    {
+      "@id": "rto:OptimizationWarning",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "优化警告",
+        "en": "Optimization Warning"
+      },
+      "comment": "优化过程中的警告信息"
+    },
+    
+    {
+      "@id": "rto:OptimizationError",
+      "@type": "owl:Class",
+      "label": {
+        "zh": "优化错误",
+        "en": "Optimization Error"
+      },
+      "comment": "优化过程中的错误信息"
+    },
+    
+    {
+      "@id": "chem:isInputOf",
+      "@type": "owl:ObjectProperty",
+      "domain": "chem:ChemicalSubstance",
+      "range": "proc:Process",
+      "label": {
+        "zh": "是...的输入",
+        "en": "is Input Of"
+      }
+    },
+    
+    {
+      "@id": "chem:isOutputOf",
+      "@type": "owl:ObjectProperty",
+      "domain": "chem:ChemicalSubstance",
+      "range": "proc:Process",
+      "label": {
+        "zh": "是...的输出",
+        "en": "is Output Of"
+      }
+    },
+    
+    {
+      "@id": "proc:usesEquipment",
+      "@type": "owl:ObjectProperty",
+      "domain": "proc:Process",
+      "range": "equip:Equipment",
+      "label": {
+        "zh": "使用设备",
+        "en": "uses Equipment"
+      }
+    },
+    
+    {
+      "@id": "proc:governedBy",
+      "@type": "owl:ObjectProperty",
+      "domain": "proc:Process",
+      "range": "mech:Mechanism",
+      "label": {
+        "zh": "受...支配",
+        "en": "governed By"
+      }
+    },
+    
+    {
+      "@id": "equip:implements",
+      "@type": "owl:ObjectProperty",
+      "domain": "equip:Equipment",
+      "range": "proc:Process",
+      "label": {
+        "zh": "实现",
+        "en": "implements"
+      }
+    },
+    
+    {
+      "@id": "mech:appliesTo",
+      "@type": "owl:ObjectProperty",
+      "domain": "mech:Mechanism",
+      "range": "chem:ChemicalSubstance",
+      "label": {
+        "zh": "适用于",
+        "en": "applies To"
+      }
+    },
+    
+    {
+      "@id": "rto:belongsToProcess",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:RTOOptimization",
+      "range": "proc:Process",
+      "label": {
+        "zh": "属于工艺",
+        "en": "belongs To Process"
+      }
+    },
+    
+    {
+      "@id": "rto:usesModelParameter",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:RTOOptimization",
+      "range": "rto:ModelParameter",
+      "label": {
+        "zh": "使用模型参数",
+        "en": "uses Model Parameter"
+      }
+    },
+    
+    {
+      "@id": "rto:hasProcessVariable",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:RTOOptimization",
+      "range": "rto:ProcessVariable",
+      "label": {
+        "zh": "包含过程变量",
+        "en": "has Process Variable"
+      }
+    },
+    
+    {
+      "@id": "rto:hasConstraint",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:RTOOptimization",
+      "range": "rto:Constraint",
+      "label": {
+        "zh": "包含约束",
+        "en": "has Constraint"
+      }
+    },
+    
+    {
+      "@id": "rto:hasSetpoint",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:RTOOptimization",
+      "range": "rto:Setpoint",
+      "label": {
+        "zh": "包含设定值",
+        "en": "has Setpoint"
+      }
+    },
+    
+    {
+      "@id": "rto:hasObjectiveFunction",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:RTOOptimization",
+      "range": "rto:ObjectiveFunction",
+      "label": {
+        "zh": "包含目标函数",
+        "en": "has Objective Function"
+      }
+    },
+    
+    {
+      "@id": "rto:usesAlgorithm",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:RTOOptimization",
+      "range": "rto:OptimizationAlgorithm",
+      "label": {
+        "zh": "使用算法",
+        "en": "uses Algorithm"
+      }
+    },
+    
+    {
+      "@id": "rto:producesOptimalSetpoint",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:RTOOptimization",
+      "range": "rto:OptimalSetpoint",
+      "label": {
+        "zh": "产生最优设定值",
+        "en": "produces Optimal Setpoint"
+      }
+    },
+    
+    {
+      "@id": "rto:hasWarning",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:RTOOptimization",
+      "range": "rto:OptimizationWarning",
+      "label": {
+        "zh": "包含警告",
+        "en": "has Warning"
+      }
+    },
+    
+    {
+      "@id": "rto:hasError",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:RTOOptimization",
+      "range": "rto:OptimizationError",
+      "label": {
+        "zh": "包含错误",
+        "en": "has Error"
+      }
+    },
+    
+    {
+      "@id": "rto:basedOnMechanism",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:RTOOptimization",
+      "range": "mech:Mechanism",
+      "label": {
+        "zh": "基于机理",
+        "en": "based On Mechanism"
+      }
+    },
+    
+    {
+      "@id": "rto:monitorsEquipment",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:RTOOptimization",
+      "range": "equip:Equipment",
+      "label": {
+        "zh": "监控设备",
+        "en": "monitors Equipment"
+      }
+    },
+    
+    {
+      "@id": "rto:involvesChemical",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:RTOOptimization",
+      "range": "chem:ChemicalSubstance",
+      "label": {
+        "zh": "涉及化学物质",
+        "en": "involves Chemical"
+      }
+    },
+    
+    {
+      "@id": "rto:measuredFrom",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:ProcessVariable",
+      "range": "equip:Equipment",
+      "label": {
+        "zh": "测量自设备",
+        "en": "measured From"
+      }
+    },
+    
+    {
+      "@id": "rto:controlsEquipment",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:ProcessVariable",
+      "range": "equip:Equipment",
+      "label": {
+        "zh": "控制设备",
+        "en": "controls Equipment"
+      }
+    },
+    
+    {
+      "@id": "rto:derivedFromMechanism",
+      "@type": "owl:ObjectProperty",
+      "domain": "rto:ModelParameter",
+      "range": "mech:Mechanism",
+      "label": {
+        "zh": "来源于机理",
+        "en": "derived From Mechanism"
+      }
+    }
+  ]
+}

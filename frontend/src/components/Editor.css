@@ -1,0 +1,481 @@
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #1e1e1e;
+}
+
+.editor-container.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  border-radius: 0;
+}
+
+.editor-header {
+  padding: 8px 12px;
+  border-bottom: 1px solid #3c3c3c;
+  background-color: #333333;
+  font-weight: bold;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+
+.editor-header .file-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.editor-header .file-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.editor-header .version-description {
+  font-weight: normal;
+  font-size: 12px;
+  color: #cccccc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 可编辑的文件名和版本描述输入框样式 */
+.editor-header .file-name-input,
+.editor-header .version-description-input {
+  width: 100%;
+  padding: 2px 4px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.editor-header .file-name-input:focus,
+.editor-header .version-description-input:focus {
+  outline: none;
+  border-color: #cccccc;
+  background-color: #333333;
+}
+
+.editor-header .version-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.editor-header .version-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.editor-header .version-description {
+  font-size: 12px;
+  color: #d0d0d0;
+  line-height: 1.4;
+}
+
+.editor-header .version-date {
+  font-size: 11px;
+  color: #aaaaaa;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+}
+
+.editor-header .version-name-input {
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff;
+  padding: 2px 4px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.editor-header .version-description-input {
+  font-size: 12px;
+  color: #d0d0d0;
+  line-height: 1.4;
+  padding: 2px 4px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  width: 100%;
+  min-height: 40px;
+  resize: vertical;
+  margin-bottom: 8px;
+}
+
+.editor-header .header-controls {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.editor-header .edit-button,
+.editor-header .cancel-button,
+.editor-header .save-button {
+  padding: 3px 12px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.editor-header .edit-button {
+  background-color: #333333;
+  color: #d4d4d4;
+  border: 1px solid #555555;
+}
+
+.editor-header .edit-button:hover {
+  background-color: #444444;
+}
+
+.editor-header .cancel-button {
+  background-color: #333333;
+  color: #d4d4d4;
+  border: 1px solid #555555;
+}
+
+.editor-header .cancel-button:hover {
+  background-color: #444444;
+}
+
+.editor-header .save-button {
+  background-color: #007acc;
+  color: white;
+}
+
+.editor-header .save-button:hover {
+  background-color: #005a9e;
+}
+
+.editor-tabs {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #3c3c3c;
+  background-color: #2d2d30;
+}
+
+.editor-tab {
+  background-color: #333333;
+  color: #d4d4d4;
+  border: 1px solid #555555;
+  padding: 6px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  margin: 0 8px;
+}
+
+
+
+.editor-textarea {
+  flex: 1;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  border: none;
+  outline: none;
+  padding: 16px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: none;
+  tab-size: 4;
+}
+
+.editor-textarea:focus {
+  outline: none;
+}
+
+/* 只读状态下的样式 */
+.editor-textarea[readonly] {
+  background-color: #2d2d30;
+  color: #a0a0a0;
+  cursor: not-allowed;
+}
+
+.editor-textarea[readonly]:focus {
+  outline: none;
+  background-color: #2d2d30;
+  color: #a0a0a0;
+}
+
+.editor-status-bar {
+  padding: 4px 12px;
+  background-color: #333333;
+  font-size: 12px;
+  border-top: 1px solid #3c3c3c;
+  display: flex;
+  justify-content: space-between;
+}
+
+.toggle-format-btn {
+  background-color: #333333;
+  color: #d4d4d4;
+  border: 1px solid #555555;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.toggle-format-btn:hover {
+  background-color: #444444;
+}
+
+.toggle-format-btn:focus {
+  outline: none;
+  border-color: #007acc;
+}
+
+.toggle-format-btn option {
+  background-color: #333333;
+  color: #d4d4d4;
+}
+
+.file-upload-btn {
+  background-color: #333333;
+  color: #d4d4d4;
+  border: 1px solid #555555;
+  padding: 4px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-right: 8px;
+}
+
+.file-upload-btn:hover {
+  background-color: #444444;
+}
+
+.file-upload-btn.disabled {
+  background-color: #333333;
+  color: #888888;
+  border: 1px solid #555555;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.file-upload-btn.disabled:hover {
+  background-color: #333333;
+}
+
+.view-mode-buttons {
+  display: flex;
+  margin-left: 12px;
+}
+
+.view-mode-btn {
+  background-color: #333333;
+  color: #d4d4d4;
+  border: 1px solid #555555;
+  padding: 4px 8px;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.view-mode-btn:first-child {
+  border-radius: 3px 0 0 3px;
+}
+
+.view-mode-btn:last-child {
+  border-radius: 0 3px 3px 0;
+}
+
+.view-mode-btn:hover {
+  background-color: #444444;
+}
+
+.view-mode-btn.active {
+  background-color: #007acc;
+  color: white;
+}
+
+.editor-tabs .file-upload-btn {
+  background-color: #333333;
+  border: 1px solid #555555;
+  color: #ffffff;
+  padding: 6px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  margin-right: 8px;
+}
+
+.editor-tabs .file-upload-btn:hover {
+  background-color: #444444;
+  border-color: #666666;
+}
+
+.editor-tabs .file-upload-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.editor-tabs .validate-btn {
+  background-color: #333333;
+  border: 1px solid #555555;
+  color: #ffffff;
+  padding: 6px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  margin-right: 8px;
+}
+
+.editor-tabs .validate-btn:hover {
+  background-color: #444444;
+  border-color: #666666;
+}
+
+.editor-tabs .validate-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.editor-tabs .toggle-format-btn {
+  background-color: #333333;
+  color: #d4d4d4;
+  border: 1px solid #555555;
+  padding: 6px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  margin: 0 8px;
+}
+
+.editor-tabs .toggle-format-btn:hover {
+  background-color: #444444;
+}
+
+.editor-tabs .toggle-format-btn {
+  background-color: #333333;
+  color: #d4d4d4;
+  border: 1px solid #555555;
+  padding: 6px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.editor-tabs .toggle-format-btn:hover {
+  background-color: #444444;
+}
+
+.editor-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  height: 100%;
+}
+
+.visual-view {
+  position: relative;
+  flex: 1;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  overflow: auto;
+  height: 100%;
+}
+
+.compare-view {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  height: 100%;
+}
+
+.compare-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+.compare-panel h3 {
+  padding: 8px 12px;
+  margin: 0;
+  background-color: #2d2d30;
+  border-bottom: 1px solid #3c3c3c;
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.compare-panel .editor-textarea {
+  flex: 1;
+  border-right: 1px solid #3c3c3c;
+}
+
+.compare-panel .visual-view {
+  position: relative;
+  flex: 1;
+  height: 100%;
+}
+
+.visual-mode-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+  z-index: 10;
+  background: none;
+  border: none;
+}
+
+.visual-mode-btn {
+  padding: 5px 10px;
+  background-color: #efefef;
+  border-radius: 0;
+  border: none !important;
+  cursor: pointer;
+  font-size: 12px;
+  color: #333333;
+  margin: 0px;
+}
+
+.visual-mode-btn:first-child {
+  border-radius: 3px 0 0 3px;
+}
+
+.visual-mode-btn:last-child {
+  border-radius: 0 3px 3px 0;
+}
+
+.visual-mode-btn:hover {
+  background-color: #e6e6e6;
+}
+
+.visual-mode-btn.active {
+  background-color: #007acc;
+  color: white;
+}

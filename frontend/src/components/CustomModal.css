@@ -1,0 +1,145 @@
+.custom-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.custom-modal {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 300px;
+  max-width: 500px;
+  width: 90%;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.custom-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.custom-modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.custom-modal-close:hover {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.custom-modal-body {
+  padding: 20px;
+}
+
+.custom-modal-body p {
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.custom-modal-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.custom-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 20px;
+  border-top: 1px solid #eee;
+  gap: 10px;
+}
+
+.custom-modal-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.custom-modal-cancel {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.custom-modal-cancel:hover {
+  background-color: #e0e0e0;
+}
+
+.custom-modal-confirm {
+  background-color: #007bff;
+  color: white;
+}
+
+.custom-modal-confirm:hover {
+  background-color: #0056b3;
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+  .custom-modal {
+    width: 95%;
+    margin: 0 10px;
+  }
+  
+  .custom-modal-header,
+  .custom-modal-body,
+  .custom-modal-footer {
+    padding: 12px;
+  }
+  
+  .custom-modal-header h3 {
+    font-size: 16px;
+  }
+  
+  .custom-modal-body p {
+    font-size: 13px;
+  }
+}

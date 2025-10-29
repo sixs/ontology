@@ -1,0 +1,893 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:chem="http://example.org/chemical#"
+         xmlns:mech="http://example.org/mechanism#"
+         xmlns:equip="http://example.org/equipment#"
+         xmlns:proc="http://example.org/process#"
+         xmlns:rto="http://example.org/rto_optimization#">
+    <owl:Ontology rdf:about="">
+        <rdfs:comment>RTO优化本体 - 整合化学物质、机理、设备和工艺的完整RTO系统</rdfs:comment>
+        <owl:versionInfo>2.0</owl:versionInfo>
+    </owl:Ontology>
+
+    <!-- 核心类：化学物质 -->
+    <owl:Class rdf:about="http://example.org/chemical#ChemicalSubstance">
+        <rdfs:label xml:lang="zh">化学物质</rdfs:label>
+        <rdfs:label xml:lang="en">Chemical Substance</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/chemical#RawMaterial">
+        <rdfs:subClassOf rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:label xml:lang="zh">原料</rdfs:label>
+        <rdfs:label xml:lang="en">Raw Material</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/chemical#Catalyst">
+        <rdfs:subClassOf rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:label xml:lang="zh">催化剂</rdfs:label>
+        <rdfs:label xml:lang="en">Catalyst</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/chemical#Product">
+        <rdfs:subClassOf rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:label xml:lang="zh">产物</rdfs:label>
+        <rdfs:label xml:lang="en">Product</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/chemical#ByProduct">
+        <rdfs:subClassOf rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:label xml:lang="zh">副产物</rdfs:label>
+        <rdfs:label xml:lang="en">By-Product</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/chemical#Intermediate">
+        <rdfs:subClassOf rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:label xml:lang="zh">中间体</rdfs:label>
+        <rdfs:label xml:lang="en">Intermediate</rdfs:label>
+    </owl:Class>
+
+    <!-- 化学物质数据属性 -->
+    <owl:DatatypeProperty rdf:about="http://example.org/chemical#hasMolecularWeight">
+        <rdfs:domain rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">分子量</rdfs:label>
+        <rdfs:label xml:lang="en">has Molecular Weight</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/chemical#hasCASNumber">
+        <rdfs:domain rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">CAS号</rdfs:label>
+        <rdfs:label xml:lang="en">has CAS Number</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/chemical#hasPurity">
+        <rdfs:domain rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">纯度</rdfs:label>
+        <rdfs:label xml:lang="en">has Purity</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/chemical#hasState">
+        <rdfs:domain rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">物态</rdfs:label>
+        <rdfs:label xml:lang="en">has State</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/chemical#hasDensity">
+        <rdfs:domain rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">密度</rdfs:label>
+        <rdfs:label xml:lang="en">has Density</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- 核心类：机理 -->
+    <owl:Class rdf:about="http://example.org/mechanism#Mechanism">
+        <rdfs:label xml:lang="zh">机理</rdfs:label>
+        <rdfs:label xml:lang="en">Mechanism</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/mechanism#MicroscopicMechanism">
+        <rdfs:subClassOf rdf:resource="http://example.org/mechanism#Mechanism"/>
+        <rdfs:label xml:lang="zh">微观机理</rdfs:label>
+        <rdfs:label xml:lang="en">Microscopic Mechanism</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/mechanism#MesoscopicMechanism">
+        <rdfs:subClassOf rdf:resource="http://example.org/mechanism#Mechanism"/>
+        <rdfs:label xml:lang="zh">介观机理</rdfs:label>
+        <rdfs:label xml:lang="en">Mesoscopic Mechanism</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/mechanism#MacroscopicMechanism">
+        <rdfs:subClassOf rdf:resource="http://example.org/mechanism#Mechanism"/>
+        <rdfs:label xml:lang="zh">宏观机理</rdfs:label>
+        <rdfs:label xml:lang="en">Macroscopic Mechanism</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/mechanism#ReactionKinetics">
+        <rdfs:subClassOf rdf:resource="http://example.org/mechanism#MicroscopicMechanism"/>
+        <rdfs:label xml:lang="zh">反应动力学</rdfs:label>
+        <rdfs:label xml:lang="en">Reaction Kinetics</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/mechanism#MolecularDynamics">
+        <rdfs:subClassOf rdf:resource="http://example.org/mechanism#MicroscopicMechanism"/>
+        <rdfs:label xml:lang="zh">分子动力学</rdfs:label>
+        <rdfs:label xml:lang="en">Molecular Dynamics</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/mechanism#PhaseEquilibrium">
+        <rdfs:subClassOf rdf:resource="http://example.org/mechanism#MesoscopicMechanism"/>
+        <rdfs:label xml:lang="zh">相平衡</rdfs:label>
+        <rdfs:label xml:lang="en">Phase Equilibrium</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/mechanism#MassTransfer">
+        <rdfs:subClassOf rdf:resource="http://example.org/mechanism#MesoscopicMechanism"/>
+        <rdfs:label xml:lang="zh">传质</rdfs:label>
+        <rdfs:label xml:lang="en">Mass Transfer</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/mechanism#HeatTransfer">
+        <rdfs:subClassOf rdf:resource="http://example.org/mechanism#MacroscopicMechanism"/>
+        <rdfs:label xml:lang="zh">传热</rdfs:label>
+        <rdfs:label xml:lang="en">Heat Transfer</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/mechanism#FluidDynamics">
+        <rdfs:subClassOf rdf:resource="http://example.org/mechanism#MacroscopicMechanism"/>
+        <rdfs:label xml:lang="zh">流体动力学</rdfs:label>
+        <rdfs:label xml:lang="en">Fluid Dynamics</rdfs:label>
+    </owl:Class>
+
+    <!-- 机理数据属性 -->
+    <owl:DatatypeProperty rdf:about="http://example.org/mechanism#hasScale">
+        <rdfs:domain rdf:resource="http://example.org/mechanism#Mechanism"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">尺度</rdfs:label>
+        <rdfs:label xml:lang="en">has Scale</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/mechanism#hasGoverningEquation">
+        <rdfs:domain rdf:resource="http://example.org/mechanism#Mechanism"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">控制方程</rdfs:label>
+        <rdfs:label xml:lang="en">has Governing Equation</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/mechanism#hasApplicability">
+        <rdfs:domain rdf:resource="http://example.org/mechanism#Mechanism"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">适用范围</rdfs:label>
+        <rdfs:label xml:lang="en">has Applicability</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/mechanism#hasAccuracy">
+        <rdfs:domain rdf:resource="http://example.org/mechanism#Mechanism"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">精度</rdfs:label>
+        <rdfs:label xml:lang="en">has Accuracy</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/mechanism#hasComputationalCost">
+        <rdfs:domain rdf:resource="http://example.org/mechanism#Mechanism"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">计算成本</rdfs:label>
+        <rdfs:label xml:lang="en">has Computational Cost</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- 核心类：设备 -->
+    <owl:Class rdf:about="http://example.org/equipment#Equipment">
+        <rdfs:label xml:lang="zh">设备</rdfs:label>
+        <rdfs:label xml:lang="en">Equipment</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/equipment#Reactor">
+        <rdfs:subClassOf rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:label xml:lang="zh">反应器</rdfs:label>
+        <rdfs:label xml:lang="en">Reactor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/equipment#HeatExchanger">
+        <rdfs:subClassOf rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:label xml:lang="zh">换热器</rdfs:label>
+        <rdfs:label xml:lang="en">Heat Exchanger</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/equipment#Separator">
+        <rdfs:subClassOf rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:label xml:lang="zh">分离器</rdfs:label>
+        <rdfs:label xml:lang="en">Separator</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/equipment#Pump">
+        <rdfs:subClassOf rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:label xml:lang="zh">泵</rdfs:label>
+        <rdfs:label xml:lang="en">Pump</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/equipment#Compressor">
+        <rdfs:subClassOf rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:label xml:lang="zh">压缩机</rdfs:label>
+        <rdfs:label xml:lang="en">Compressor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/equipment#DistillationColumn">
+        <rdfs:subClassOf rdf:resource="http://example.org/equipment#Separator"/>
+        <rdfs:label xml:lang="zh">精馏塔</rdfs:label>
+        <rdfs:label xml:lang="en">Distillation Column</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/equipment#Centrifuge">
+        <rdfs:subClassOf rdf:resource="http://example.org/equipment#Separator"/>
+        <rdfs:label xml:lang="zh">离心机</rdfs:label>
+        <rdfs:label xml:lang="en">Centrifuge</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/equipment#ShellAndTube">
+        <rdfs:subClassOf rdf:resource="http://example.org/equipment#HeatExchanger"/>
+        <rdfs:label xml:lang="zh">管壳式换热器</rdfs:label>
+        <rdfs:label xml:lang="en">Shell and Tube Heat Exchanger</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/equipment#PlateHeatExchanger">
+        <rdfs:subClassOf rdf:resource="http://example.org/equipment#HeatExchanger"/>
+        <rdfs:label xml:lang="zh">板式换热器</rdfs:label>
+        <rdfs:label xml:lang="en">Plate Heat Exchanger</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/equipment#CSTR">
+        <rdfs:subClassOf rdf:resource="http://example.org/equipment#Reactor"/>
+        <rdfs:label xml:lang="zh">连续搅拌釜反应器</rdfs:label>
+        <rdfs:label xml:lang="en">CSTR</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/equipment#PFR">
+        <rdfs:subClassOf rdf:resource="http://example.org/equipment#Reactor"/>
+        <rdfs:label xml:lang="zh">平推流反应器</rdfs:label>
+        <rdfs:label xml:lang="en">PFR</rdfs:label>
+    </owl:Class>
+
+    <!-- 设备数据属性 -->
+    <owl:DatatypeProperty rdf:about="http://example.org/equipment#hasVolume">
+        <rdfs:domain rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">体积</rdfs:label>
+        <rdfs:label xml:lang="en">has Volume</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/equipment#hasMaterial">
+        <rdfs:domain rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">材质</rdfs:label>
+        <rdfs:label xml:lang="en">has Material</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/equipment#hasOperatingPressure">
+        <rdfs:domain rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">操作压力</rdfs:label>
+        <rdfs:label xml:lang="en">has Operating Pressure</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/equipment#hasOperatingTemperature">
+        <rdfs:domain rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">操作温度</rdfs:label>
+        <rdfs:label xml:lang="en">has Operating Temperature</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/equipment#hasEfficiency">
+        <rdfs:domain rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">效率</rdfs:label>
+        <rdfs:label xml:lang="en">has Efficiency</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- 核心类：工艺 -->
+    <owl:Class rdf:about="http://example.org/process#Process">
+        <rdfs:label xml:lang="zh">工艺</rdfs:label>
+        <rdfs:label xml:lang="en">Process</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/process#MTOProcess">
+        <rdfs:subClassOf rdf:resource="http://example.org/process#Process"/>
+        <rdfs:label xml:lang="zh">甲醇制烯烃工艺</rdfs:label>
+        <rdfs:label xml:lang="en">MTO Process</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/process#CrackingProcess">
+        <rdfs:subClassOf rdf:resource="http://example.org/process#Process"/>
+        <rdfs:label xml:lang="zh">裂解工艺</rdfs:label>
+        <rdfs:label xml:lang="en">Cracking Process</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/process#PolymerizationProcess">
+        <rdfs:subClassOf rdf:resource="http://example.org/process#Process"/>
+        <rdfs:label xml:lang="zh">聚合工艺</rdfs:label>
+        <rdfs:label xml:lang="en">Polymerization Process</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/process#DistillationProcess">
+        <rdfs:subClassOf rdf:resource="http://example.org/process#Process"/>
+        <rdfs:label xml:lang="zh">精馏工艺</rdfs:label>
+        <rdfs:label xml:lang="en">Distillation Process</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/process#HydrogenationProcess">
+        <rdfs:subClassOf rdf:resource="http://example.org/process#Process"/>
+        <rdfs:label xml:lang="zh">加氢工艺</rdfs:label>
+        <rdfs:label xml:lang="en">Hydrogenation Process</rdfs:label>
+    </owl:Class>
+
+    <!-- 工艺数据属性 -->
+    <owl:DatatypeProperty rdf:about="http://example.org/process#hasYield">
+        <rdfs:domain rdf:resource="http://example.org/process#Process"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">收率</rdfs:label>
+        <rdfs:label xml:lang="en">has Yield</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/process#hasEnergyConsumption">
+        <rdfs:domain rdf:resource="http://example.org/process#Process"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">能耗</rdfs:label>
+        <rdfs:label xml:lang="en">has Energy Consumption</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/process#hasThroughput">
+        <rdfs:domain rdf:resource="http://example.org/process#Process"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">处理量</rdfs:label>
+        <rdfs:label xml:lang="en">has Throughput</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/process#hasCycleTime">
+        <rdfs:domain rdf:resource="http://example.org/process#Process"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">周期时间</rdfs:label>
+        <rdfs:label xml:lang="en">has Cycle Time</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/process#hasSafetyLevel">
+        <rdfs:domain rdf:resource="http://example.org/process#Process"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">安全等级</rdfs:label>
+        <rdfs:label xml:lang="en">has Safety Level</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- RTO优化相关类 -->
+    <owl:Class rdf:about="http://example.org/rto_optimization#RTOOptimization">
+        <rdfs:label xml:lang="zh">RTO优化</rdfs:label>
+        <rdfs:label xml:lang="en">RTO Optimization</rdfs:label>
+        <rdfs:comment>实时优化系统，基于工艺模型和实时数据进行优化计算</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/rto_optimization#ProcessVariable">
+        <rdfs:label xml:lang="zh">过程变量</rdfs:label>
+        <rdfs:label xml:lang="en">Process Variable</rdfs:label>
+        <rdfs:comment>工艺过程中可测量或可控制的变量</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/rto_optimization#Constraint">
+        <rdfs:label xml:lang="zh">约束</rdfs:label>
+        <rdfs:label xml:lang="en">Constraint</rdfs:label>
+        <rdfs:comment>优化问题的约束条件</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/rto_optimization#Setpoint">
+        <rdfs:label xml:lang="zh">设定值</rdfs:label>
+        <rdfs:label xml:lang="en">Setpoint</rdfs:label>
+        <rdfs:comment>过程变量的目标设定值</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/rto_optimization#ModelParameter">
+        <rdfs:label xml:lang="zh">模型参数</rdfs:label>
+        <rdfs:label xml:lang="en">Model Parameter</rdfs:label>
+        <rdfs:comment>工艺模型的参数</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/rto_optimization#ObjectiveFunction">
+        <rdfs:label xml:lang="zh">目标函数</rdfs:label>
+        <rdfs:label xml:lang="en">Objective Function</rdfs:label>
+        <rdfs:comment>优化问题的目标函数</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/rto_optimization#OptimizationAlgorithm">
+        <rdfs:label xml:lang="zh">优化算法</rdfs:label>
+        <rdfs:label xml:lang="en">Optimization Algorithm</rdfs:label>
+        <rdfs:comment>用于求解优化问题的算法</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/rto_optimization#OptimalSetpoint">
+        <rdfs:label xml:lang="zh">最优设定值</rdfs:label>
+        <rdfs:label xml:lang="en">Optimal Setpoint</rdfs:label>
+        <rdfs:comment>优化计算得到的最优设定值</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/rto_optimization#OptimizationWarning">
+        <rdfs:label xml:lang="zh">优化警告</rdfs:label>
+        <rdfs:label xml:lang="en">Optimization Warning</rdfs:label>
+        <rdfs:comment>优化过程中的警告信息</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/rto_optimization#OptimizationError">
+        <rdfs:label xml:lang="zh">优化错误</rdfs:label>
+        <rdfs:label xml:lang="en">Optimization Error</rdfs:label>
+        <rdfs:comment>优化过程中的错误信息</rdfs:comment>
+    </owl:Class>
+
+    <!-- RTO数据属性 -->
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasOptimizationId">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">优化ID</rdfs:label>
+        <rdfs:label xml:lang="en">has Optimization ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasTimestamp">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label xml:lang="zh">时间戳</rdfs:label>
+        <rdfs:label xml:lang="en">has Timestamp</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasVersion">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">版本</rdfs:label>
+        <rdfs:label xml:lang="en">has Version</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasStatus">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">状态</rdfs:label>
+        <rdfs:label xml:lang="en">has Status</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasExecutionTimeMs">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="zh">执行时间（毫秒）</rdfs:label>
+        <rdfs:label xml:lang="en">has Execution Time Ms</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasVariableId">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#ProcessVariable"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">变量ID</rdfs:label>
+        <rdfs:label xml:lang="en">has Variable ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasTag">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#ProcessVariable"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">标签</rdfs:label>
+        <rdfs:label xml:lang="en">has Tag</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasValue">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#ProcessVariable"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">值</rdfs:label>
+        <rdfs:label xml:lang="en">has Value</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasUnit">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#ProcessVariable"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">单位</rdfs:label>
+        <rdfs:label xml:lang="en">has Unit</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasDataQuality">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#ProcessVariable"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">数据质量</rdfs:label>
+        <rdfs:label xml:lang="en">has Data Quality</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasLowerBound">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#Constraint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">下界</rdfs:label>
+        <rdfs:label xml:lang="en">has Lower Bound</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasUpperBound">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#Constraint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">上界</rdfs:label>
+        <rdfs:label xml:lang="en">has Upper Bound</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasConstraintType">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#Constraint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">约束类型</rdfs:label>
+        <rdfs:label xml:lang="en">has Constraint Type</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasCurrentValue">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#Setpoint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">当前值</rdfs:label>
+        <rdfs:label xml:lang="en">has Current Value</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasParamId">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#ModelParameter"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">参数ID</rdfs:label>
+        <rdfs:label xml:lang="en">has Param ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasConfidence">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#ModelParameter"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">置信度</rdfs:label>
+        <rdfs:label xml:lang="en">has Confidence</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasExpression">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#ObjectiveFunction"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">表达式</rdfs:label>
+        <rdfs:label xml:lang="en">has Expression</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasCurrentObjectiveValue">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#ObjectiveFunction"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">当前目标值</rdfs:label>
+        <rdfs:label xml:lang="en">has Current Objective Value</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasAlgorithmName">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#OptimizationAlgorithm"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">算法名称</rdfs:label>
+        <rdfs:label xml:lang="en">has Algorithm Name</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasMaxIterations">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#OptimizationAlgorithm"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="zh">最大迭代次数</rdfs:label>
+        <rdfs:label xml:lang="en">has Max Iterations</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasTolerance">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#OptimizationAlgorithm"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">收敛精度</rdfs:label>
+        <rdfs:label xml:lang="en">has Tolerance</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasOptimalValue">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#OptimalSetpoint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">最优值</rdfs:label>
+        <rdfs:label xml:lang="en">has Optimal Value</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasDeltaFromCurrent">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#OptimalSetpoint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">与当前值的偏差</rdfs:label>
+        <rdfs:label xml:lang="en">has Delta From Current</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasConfidenceLevel">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#OptimalSetpoint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">置信度</rdfs:label>
+        <rdfs:label xml:lang="en">has Confidence Level</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasReason">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#OptimalSetpoint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">调整理由</rdfs:label>
+        <rdfs:label xml:lang="en">has Reason</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasDelta">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label xml:lang="zh">改进量</rdfs:label>
+        <rdfs:label xml:lang="en">has Delta</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasPotentialBenefit">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">潜在收益</rdfs:label>
+        <rdfs:label xml:lang="en">has Potential Benefit</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasMessage">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#OptimizationWarning"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">警告信息</rdfs:label>
+        <rdfs:label xml:lang="en">has Message</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasSeverity">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#OptimizationWarning"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="zh">严重度</rdfs:label>
+        <rdfs:label xml:lang="en">has Severity</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasErrorMessage">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#OptimizationError"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">错误信息</rdfs:label>
+        <rdfs:label xml:lang="en">has Error Message</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://example.org/rto_optimization#hasSolutionSuggestion">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#OptimizationError"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="zh">解决方案建议</rdfs:label>
+        <rdfs:label xml:lang="en">has Solution Suggestion</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- 对象属性 -->
+    <owl:ObjectProperty rdf:about="http://example.org/chemical#isInputOf">
+        <rdfs:domain rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:range rdf:resource="http://example.org/process#Process"/>
+        <rdfs:label xml:lang="zh">是...的输入</rdfs:label>
+        <rdfs:label xml:lang="en">is Input Of</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/chemical#isOutputOf">
+        <rdfs:domain rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:range rdf:resource="http://example.org/process#Process"/>
+        <rdfs:label xml:lang="zh">是...的输出</rdfs:label>
+        <rdfs:label xml:lang="en">is Output Of</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/process#usesEquipment">
+        <rdfs:domain rdf:resource="http://example.org/process#Process"/>
+        <rdfs:range rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:label xml:lang="zh">使用设备</rdfs:label>
+        <rdfs:label xml:lang="en">uses Equipment</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/process#governedBy">
+        <rdfs:domain rdf:resource="http://example.org/process#Process"/>
+        <rdfs:range rdf:resource="http://example.org/mechanism#Mechanism"/>
+        <rdfs:label xml:lang="zh">受...支配</rdfs:label>
+        <rdfs:label xml:lang="en">governed By</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/equipment#implements">
+        <rdfs:domain rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:range rdf:resource="http://example.org/process#Process"/>
+        <rdfs:label xml:lang="zh">实现</rdfs:label>
+        <rdfs:label xml:lang="en">implements</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/mechanism#appliesTo">
+        <rdfs:domain rdf:resource="http://example.org/mechanism#Mechanism"/>
+        <rdfs:range rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:label xml:lang="zh">适用于</rdfs:label>
+        <rdfs:label xml:lang="en">applies To</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- RTO与工艺、设备、机理的关联属性 -->
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#belongsToProcess">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://example.org/process#Process"/>
+        <rdfs:label xml:lang="zh">属于工艺</rdfs:label>
+        <rdfs:label xml:lang="en">belongs To Process</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#usesModelParameter">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://example.org/rto_optimization#ModelParameter"/>
+        <rdfs:label xml:lang="zh">使用模型参数</rdfs:label>
+        <rdfs:label xml:lang="en">uses Model Parameter</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#hasProcessVariable">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://example.org/rto_optimization#ProcessVariable"/>
+        <rdfs:label xml:lang="zh">包含过程变量</rdfs:label>
+        <rdfs:label xml:lang="en">has Process Variable</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#hasConstraint">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://example.org/rto_optimization#Constraint"/>
+        <rdfs:label xml:lang="zh">包含约束</rdfs:label>
+        <rdfs:label xml:lang="en">has Constraint</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#hasSetpoint">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://example.org/rto_optimization#Setpoint"/>
+        <rdfs:label xml:lang="zh">包含设定值</rdfs:label>
+        <rdfs:label xml:lang="en">has Setpoint</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#hasObjectiveFunction">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://example.org/rto_optimization#ObjectiveFunction"/>
+        <rdfs:label xml:lang="zh">包含目标函数</rdfs:label>
+        <rdfs:label xml:lang="en">has Objective Function</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#usesAlgorithm">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://example.org/rto_optimization#OptimizationAlgorithm"/>
+        <rdfs:label xml:lang="zh">使用算法</rdfs:label>
+        <rdfs:label xml:lang="en">uses Algorithm</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#producesOptimalSetpoint">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://example.org/rto_optimization#OptimalSetpoint"/>
+        <rdfs:label xml:lang="zh">产生最优设定值</rdfs:label>
+        <rdfs:label xml:lang="en">produces Optimal Setpoint</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#hasWarning">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://example.org/rto_optimization#OptimizationWarning"/>
+        <rdfs:label xml:lang="zh">包含警告</rdfs:label>
+        <rdfs:label xml:lang="en">has Warning</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#hasError">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://example.org/rto_optimization#OptimizationError"/>
+        <rdfs:label xml:lang="zh">包含错误</rdfs:label>
+        <rdfs:label xml:lang="en">has Error</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- 新增：RTO与机理的关联 -->
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#basedOnMechanism">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://example.org/mechanism#Mechanism"/>
+        <rdfs:label xml:lang="zh">基于机理</rdfs:label>
+        <rdfs:label xml:lang="en">based On Mechanism</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#monitorsEquipment">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:label xml:lang="zh">监控设备</rdfs:label>
+        <rdfs:label xml:lang="en">monitors Equipment</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#involvesChemical">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+        <rdfs:range rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+        <rdfs:label xml:lang="zh">涉及化学物质</rdfs:label>
+        <rdfs:label xml:lang="en">involves Chemical</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- 新增：过程变量与设备的关联 -->
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#measuredFrom">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#ProcessVariable"/>
+        <rdfs:range rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:label xml:lang="zh">测量自设备</rdfs:label>
+        <rdfs:label xml:lang="en">measured From</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#controlsEquipment">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#ProcessVariable"/>
+        <rdfs:range rdf:resource="http://example.org/equipment#Equipment"/>
+        <rdfs:label xml:lang="zh">控制设备</rdfs:label>
+        <rdfs:label xml:lang="en">controls Equipment</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- 新增：模型参数与机理的关联 -->
+    <owl:ObjectProperty rdf:about="http://example.org/rto_optimization#derivedFromMechanism">
+        <rdfs:domain rdf:resource="http://example.org/rto_optimization#ModelParameter"/>
+        <rdfs:range rdf:resource="http://example.org/mechanism#Mechanism"/>
+        <rdfs:label xml:lang="zh">来源于机理</rdfs:label>
+        <rdfs:label xml:lang="en">derived From Mechanism</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- 公理与约束 -->
+    <owl:Restriction>
+        <owl:onProperty rdf:resource="http://example.org/chemical#hasPurity"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:subClassOf rdf:resource="http://example.org/chemical#ChemicalSubstance"/>
+    </owl:Restriction>
+
+    <owl:Restriction>
+        <owl:onProperty rdf:resource="http://example.org/equipment#hasOperatingPressure"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:subClassOf rdf:resource="http://example.org/equipment#Equipment"/>
+    </owl:Restriction>
+
+    <owl:Restriction>
+        <owl:onProperty rdf:resource="http://example.org/process#hasYield"/>
+        <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:subClassOf rdf:resource="http://example.org/process#Process"/>
+    </owl:Restriction>
+
+    <!-- RTO状态约束 -->
+    <owl:Restriction>
+        <owl:onProperty rdf:resource="http://example.org/rto_optimization#hasStatus"/>
+        <owl:allValuesFrom>
+            <rdfs:Datatype>
+                <owl:oneOf>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                        <rdf:first>pending</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                <rdf:first>running</rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                        <rdf:first>success</rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                <rdf:first>failed</rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </owl:oneOf>
+            </rdfs:Datatype>
+        </owl:allValuesFrom>
+        <rdfs:subClassOf rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+    </owl:Restriction>
+
+    <!-- 约束类型约束 -->
+    <owl:Restriction>
+        <owl:onProperty rdf:resource="http://example.org/rto_optimization#hasConstraintType"/>
+        <owl:allValuesFrom>
+            <rdfs:Datatype>
+                <owl:oneOf>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                        <rdf:first>hard</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                <rdf:first>soft</rdf:first>
+                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </owl:oneOf>
+            </rdfs:Datatype>
+        </owl:allValuesFrom>
+        <rdfs:subClassOf rdf:resource="http://example.org/rto_optimization#Constraint"/>
+    </owl:Restriction>
+
+    <!-- 新增：RTO优化必须属于某个工艺 -->
+    <owl:Restriction>
+        <owl:onProperty rdf:resource="http://example.org/rto_optimization#belongsToProcess"/>
+        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</owl:minCardinality>
+        <rdfs:subClassOf rdf:resource="http://example.org/rto_optimization#RTOOptimization"/>
+    </owl:Restriction>
+
+    <!-- 新增：过程变量必须关联到设备 -->
+    <owl:Restriction>
+        <owl:onProperty rdf:resource="http://example.org/rto_optimization#measuredFrom"/>
+        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</owl:minCardinality>
+        <rdfs:subClassOf rdf:resource="http://example.org/rto_optimization#ProcessVariable"/>
+    </owl:Restriction>
+
+</rdf:RDF>

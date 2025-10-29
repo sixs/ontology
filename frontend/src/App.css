@@ -1,0 +1,220 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.sidebar-panel {
+  width: 50px;
+  min-width: 50px;
+  margin-right: 4px;
+}
+
+.file-explorer {
+  width: 250px;
+  min-width: 200px;
+  border-right: 1px solid #3c3c3c;
+  background-color: #333333;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-right: 4px;
+}
+
+.editor {
+  flex: 1;
+  min-width: 400px;
+  background-color: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-right: 4px;
+  border-left: 1px solid #3c3c3c;
+  border-right: 1px solid #3c3c3c;
+}
+
+.chat-panel {
+  border-left: 1px solid #3c3c3c;
+  background-color: #2d2d30;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+/* 可视化视图样式 */
+.visual-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.visual-mode-buttons {
+  display: flex;
+  padding: 10px;
+  background-color: #2d2d30;
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.visual-mode-btn {
+  padding: 8px 16px;
+  margin-right: 10px;
+  background-color: #3c3c3c;
+  color: #d4d4d4;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.visual-mode-btn.active {
+  background-color: #007acc;
+}
+
+.visual-content {
+  flex: 1;
+  overflow: auto;
+  background-color: #1e1e1e;
+  height: 100%;
+  width: 100%;
+}
+
+/* 树形视图样式 */
+.tree-viewer {
+  color: #d4d4d4;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 14px;
+}
+
+.tree-node {
+  margin: 2px 0;
+}
+
+.tree-node-header {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.tree-node-header:hover {
+  background-color: #2a2d2e;
+}
+
+.tree-node-toggle {
+  margin-right: 8px;
+  color: #569cd6;
+  font-size: 12px;
+  width: 16px;
+  text-align: center;
+}
+
+.tree-node-toggle-placeholder {
+  margin-right: 8px;
+  width: 16px;
+}
+
+.tree-node-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tree-node-children {
+  margin-left: 16px;
+}
+
+/* 表格视图样式 */
+.table-view {
+  padding: 5px;
+}
+
+.table-view table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #2d2d30;
+  color: #d4d4d4;
+  font-size: 14px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.table-view th,
+.table-view td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.table-view th {
+  background-color: #333333;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #9cdcfe;
+}
+
+.table-view tr:last-child td {
+  border-bottom: none;
+}
+
+.table-view tr:hover {
+  background-color: #3a3a3a;
+}
+
+.table-view td:first-child {
+  font-weight: 500;
+  color: #dcdcaa;
+}
+
+.table-view td {
+  color: #c5c5c5;
+}
+
+.table-view .no-data {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+}
