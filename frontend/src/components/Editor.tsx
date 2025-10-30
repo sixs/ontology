@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createVersion, visualizeData } from '../services/api';
 import GraphView from './GraphView';
 import TreeViewer from './TreeViewer';
@@ -36,6 +36,8 @@ type EditorProps = {
 };
 
 const Editor: React.FC<EditorProps> = ({ content, editorContent, setEditorContent, selectedVersion, versionCreatedAt, versionUpdatedAt, viewMode, onToggleViewMode, visualMode, onToggleVisualMode, onFileUpload, onSave, isEditing, onEditToggle, onCreateVersion, onFullscreenToggle, onValidate, graphData }) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const lineNumbersRef = useRef<HTMLDivElement>(null);
   const [internalEditorContent, setInternalEditorContent] = React.useState<string>(content);
   const effectiveEditorContent = editorContent !== undefined ? editorContent : internalEditorContent;
   const setEffectiveEditorContent = setEditorContent || setInternalEditorContent;
@@ -90,6 +92,12 @@ const Editor: React.FC<EditorProps> = ({ content, editorContent, setEditorConten
     }
   }, [content, selectedVersion]);
   
+  const syncScroll = () => {
+    if (textareaRef.current && lineNumbersRef.current) {
+      lineNumbersRef.current.scrollTop = textareaRef.current.scrollTop;
+    }
+  };
+  
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setEffectiveEditorContent(e.target.value);
     // 更新行列信息
@@ -106,6 +114,13 @@ const Editor: React.FC<EditorProps> = ({ content, editorContent, setEditorConten
     // 更新总行数
     const totalLines = text.split('\n').length;
     setLineCount(totalLines);
+    
+    // 同步滚动
+    syncScroll();
+  };
+  
+  const handleScroll = () => {
+    syncScroll();
   };
   
   const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
@@ -372,14 +387,23 @@ const Editor: React.FC<EditorProps> = ({ content, editorContent, setEditorConten
       </div>
       <div className="editor-content">
         {viewMode === 'source' && (
-          <textarea 
-            className="editor-textarea"
-            value={effectiveEditorContent}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            spellCheck="false"
-            readOnly={!localIsEditing}
-          />
+          <div className="editor-wrapper">
+            <div className="line-numbers" ref={lineNumbersRef}>
+              {Array.from({ length: lineCount }, (_, i) => (
+                <div key={i + 1} className="line-number">{i + 1}</div>
+              ))}
+            </div>
+            <textarea 
+              ref={textareaRef}
+              className="editor-textarea"
+              value={effectiveEditorContent}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onScroll={handleScroll}
+              spellCheck="false"
+              readOnly={!localIsEditing}
+            />
+          </div>
         )}
         {viewMode === 'visual' && (
           <div className="visual-view">
@@ -428,14 +452,23 @@ const Editor: React.FC<EditorProps> = ({ content, editorContent, setEditorConten
         {viewMode === 'compare' && (
           <div className="compare-view">
             <div className="compare-panel">
-              <textarea 
-                className="editor-textarea"
-                value={editorContent}
-                onChange={handleChange}
-                onFocus={handleFocus}
-                spellCheck="false"
-                readOnly={!localIsEditing}
-              />
+              <div className="editor-wrapper">
+                <div className="line-numbers" ref={lineNumbersRef}>
+                  {Array.from({ length: lineCount }, (_, i) => (
+                    <div key={i + 1} className="line-number">{i + 1}</div>
+                  ))}
+                </div>
+                <textarea 
+                  ref={textareaRef}
+                  className="editor-textarea"
+                  value={editorContent}
+                  onChange={handleChange}
+                  onFocus={handleFocus}
+                  onScroll={handleScroll}
+                  spellCheck="false"
+                  readOnly={!localIsEditing}
+                />
+              </div>
             </div>
             <div className="compare-panel">
               <div className="visual-view">

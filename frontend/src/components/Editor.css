@@ -191,7 +191,30 @@
   margin: 0 8px;
 }
 
+.editor-wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
 
+.line-numbers {
+  width: 40px;
+  background-color: #2d2d30;
+  color: #858585;
+  text-align: right;
+  padding: 16px 4px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow: hidden;
+  user-select: none;
+  border-right: 1px solid #3c3c3c;
+}
+
+.line-number {
+  padding: 0 4px;
+}
 
 .editor-textarea {
   flex: 1;
