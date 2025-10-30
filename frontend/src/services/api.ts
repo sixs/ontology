@@ -32,9 +32,9 @@ export const getVersions = async (page: number = 1, search: string = ''): Promis
       if (error instanceof TypeError && error.message.includes('fetch')) {
         showError('网络错误，请稍后重试');
       } else if (error.message) {
-        showError(`创建版本失败: ${error.message}`);
+        showError(`获取版本列表失败: ${error.message}`);
       } else {
-        showError('创建版本失败，请稍后重试');
+        showError('获取版本列表失败，请稍后重试');
       }
       throw error;
     }

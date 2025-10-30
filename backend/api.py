@@ -23,7 +23,7 @@ def create_app():
         page_size = int(request.args.get('page_size', 20))
         search_term = request.args.get('search', '')
 
-        versions = OntologyVersion.get_all(page, page_size, search_term)
+        versions = OntologyVersion.get_all_basic(page, page_size, search_term)
         total = OntologyVersion.count_all(search_term)
 
         return jsonify({
@@ -44,12 +44,14 @@ def create_app():
                 'name': version.name,
                 'description': version.description,
                 'ontology_data': version.ontology_data,
+                'owl_data': version.owl_data,
+                'jsonld_data': version.jsonld_data,
                 'graph': version.graph,
-                'tree': json.loads(version.tree),
-                'table': json.loads(version.table),
-                'created_at': version.created_at.isoformat(),
-                'updated_at': version.updated_at.isoformat()
-            })
+                'tree': version.tree,
+                'table': version.table,
+                'created_at': version.created_at.isoformat() if version.created_at else None,
+                'updated_at': version.updated_at.isoformat() if version.updated_at else None
+            }), 200
         else:
             return jsonify({'error': 'Version not found'}), 404
 
@@ -84,6 +86,15 @@ def create_app():
             graph_data = visualization_data['graph']
             tree_data = visualization_data['tree']
             table_data = visualization_data['table']
+                        
+            # 检测数据类型并进行相应转换
+            data_type = detect_data_type(data['ontology_data'])
+            if data_type == "jsonld":
+                owl_data = convert_jsonld_to_owl(data['ontology_data'])
+                jsonld_data = data['ontology_data']
+            else:  # owl
+                owl_data = data['ontology_data']
+                jsonld_data = convert_owl_to_jsonld(data['ontology_data'])
         except Exception as e:
             return jsonify({
                 'error': '生成可视化数据时发生错误',
@@ -95,6 +106,8 @@ def create_app():
             name=data['name'],
             description=data.get('description', ''),
             ontology_data=data['ontology_data'],
+            owl_data=owl_data,
+            jsonld_data=jsonld_data,
             graph=graph_data,
             tree=tree_data,
             table=table_data
@@ -119,6 +132,8 @@ def create_app():
             'name': version.name,
             'description': version.description,
             'ontology_data': version.ontology_data,
+            'owl_data': version.owl_data,
+            'jsonld_data': version.jsonld_data,
             'graph': graph_data,
             'tree': tree_data,
             'table': table_data,
@@ -141,7 +156,7 @@ def create_app():
             version.description = data['description']
         if 'ontology_data' in data:
             version.ontology_data = data['ontology_data']
-            # 重新生成可视化数据
+            # 重新生成可视化数据和OWL/JSON-LD数据
             try:
                 visualization_data = generate_visualization(data['ontology_data'])
                 if visualization_data is None:
@@ -152,6 +167,15 @@ def create_app():
                 version.graph = visualization_data['graph']
                 version.tree = visualization_data['tree']
                 version.table = visualization_data['table']
+                                
+                # 检测数据类型并进行相应转换
+                data_type = detect_data_type(data['ontology_data'])
+                if data_type == "jsonld":
+                    version.owl_data = convert_jsonld_to_owl(data['ontology_data'])
+                    version.jsonld_data = data['ontology_data']
+                else:  # owl
+                    version.owl_data = data['ontology_data']
+                    version.jsonld_data = convert_owl_to_jsonld(data['ontology_data'])
             except Exception as e:
                 return jsonify({
                     'error': '生成可视化数据时发生错误',
@@ -172,6 +196,8 @@ def create_app():
             'name': version.name,
             'description': version.description,
             'ontology_data': version.ontology_data,
+            'owl_data': version.owl_data,
+            'jsonld_data': version.jsonld_data,
             'graph': graph_data,
             'tree': tree_data,
             'table': table_data,
