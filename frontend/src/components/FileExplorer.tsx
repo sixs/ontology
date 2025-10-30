@@ -281,7 +281,7 @@ const FileExplorer = forwardRef(({
             >
               <div className="version-name">{version.name}</div>
               <div className="version-description">{version.description}</div>
-              <div className="version-date">{version.created_at && new Date(version.created_at).toLocaleString()}</div>
+              <div className="version-date">{version.updated_at && new Date(version.updated_at).toLocaleString()}</div>
               <div className="version-actions">
                 <button className="action-btn edit-btn" onClick={(e) => handleEditVersion(version.id!, e)} title="编辑">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">

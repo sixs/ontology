@@ -80,8 +80,32 @@ class OntologyVersion:
                 row_list[9] = datetime.fromisoformat(row_list[9])
             if len(row_list) > 10 and row_list[10]:
                 row_list[10] = datetime.fromisoformat(row_list[10])
+            
+            # 处理graph、tree和table字段，如果它们是字符串则转换为Python对象
+            if isinstance(row_list[6], str):
+                try:
+                    row_list[6] = json.loads(row_list[6])
+                except json.JSONDecodeError:
+                    pass  # 如果解析失败，保持原值
+            
+            if isinstance(row_list[7], str):
+                try:
+                    row_list[7] = json.loads(row_list[7])
+                except json.JSONDecodeError:
+                    pass  # 如果解析失败，保持原值
+                    
+            if isinstance(row_list[8], str):
+                try:
+                    row_list[8] = json.loads(row_list[8])
+                except json.JSONDecodeError:
+                    pass  # 如果解析失败，保持原值
+            
             # 重新构造参数列表，适应新的构造函数
-            return OntologyVersion(row_list[1], row_list[2], row_list[3], row_list[4], row_list[5], row_list[6], row_list[7], row_list[8], row_list[0])
+            version = OntologyVersion(row_list[1], row_list[2], row_list[3], row_list[4], row_list[5], row_list[6], row_list[7], row_list[8], row_list[0])
+            # 设置created_at和updated_at字段
+            version.created_at = row_list[9] if len(row_list) > 9 else None
+            version.updated_at = row_list[10] if len(row_list) > 10 else None
+            return version
         return None
 
     @staticmethod
@@ -94,7 +118,7 @@ class OntologyVersion:
             query = '''
                 SELECT id, name, description, created_at, updated_at FROM ontology_versions
                 WHERE name LIKE ? OR description LIKE ?
-                ORDER BY created_at DESC
+                ORDER BY updated_at DESC
                 LIMIT ? OFFSET ?
             '''
             search_pattern = f'%{search_term}%'
@@ -102,7 +126,7 @@ class OntologyVersion:
         else:
             query = '''
                 SELECT id, name, description, created_at, updated_at FROM ontology_versions
-                ORDER BY created_at DESC
+                ORDER BY updated_at DESC
                 LIMIT ? OFFSET ?
             '''
             cursor.execute(query, (page_size, offset))
@@ -149,7 +173,29 @@ class OntologyVersion:
 
         versions = []
         for row in rows:
-            print(row[5])
+            # 处理graph、tree和table字段，如果它们是字符串则转换为Python对象
+            graph_data = row[6]
+            tree_data = row[7]
+            table_data = row[8]
+            
+            if isinstance(graph_data, str):
+                try:
+                    graph_data = json.loads(graph_data)
+                except json.JSONDecodeError:
+                    pass  # 如果解析失败，保持原值
+            
+            if isinstance(tree_data, str):
+                try:
+                    tree_data = json.loads(tree_data)
+                except json.JSONDecodeError:
+                    pass  # 如果解析失败，保持原值
+                    
+            if isinstance(table_data, str):
+                try:
+                    table_data = json.loads(table_data)
+                except json.JSONDecodeError:
+                    pass  # 如果解析失败，保持原值
+            
             versions.append({
                 'id': row[0],
                 'name': row[1],
@@ -157,9 +203,9 @@ class OntologyVersion:
                 'ontology_data': row[3],
                 'owl_data': row[4],
                 'jsonld_data': row[5],
-                'graph': row[6],
-                'tree': json.loads(row[7]),
-                'table': json.loads(row[8]),
+                'graph': graph_data,
+                'tree': tree_data,
+                'table': table_data,
                 'created_at': row[9],
                 'updated_at': row[10]
             })
