@@ -48,6 +48,15 @@ backend/
 - **rdflib**: RDF数据处理库
 - **owlready2**: OWL本体处理库
 - **pyvis**: 网络图可视化库
+- **python-dotenv**: 环境变量加载库
+
+## 环境变量配置
+
+后端服务使用`python-dotenv`库从`backend/.env`文件加载环境变量配置。主要配置项包括：
+
+- `BACKEND_PORT`: 后端服务端口号，默认为5000
+
+要使用自定义配置，请复制`.env.example`文件为`.env`并修改相应配置项。
 - **SQLite**: 默认数据库（可通过配置更改）
 
 ## 安装与部署

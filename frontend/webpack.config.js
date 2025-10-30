@@ -1,6 +1,6 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -29,12 +29,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
-    new Dotenv(),
+    new webpack.DefinePlugin({
+      'process.env.REACT_APP_AI_ASSISTANT_URL': JSON.stringify('http://10.159.200.245:5918/chat/88OkcGe2dK8IVFki'),
+      'process.env.REACT_APP_BACKEND_API_URL': JSON.stringify('http://localhost:5000/api'),
+    }),
+
   ],
   devServer: {
     static: './dist',
     open: true,
     hot: true,
-    port: process.env.REACT_APP_FRONTEND_PORT || 3000,
+    port: 3001,
+    allowedHosts: 'all'
   },
 };

@@ -14,7 +14,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ isCollapsed, onToggle }) => {
       </button>
       <div className="chat-iframe-container">
         <iframe 
-          src={process.env.REACT_APP_AI_ASSISTANT_URL || "http://10.159.200.245:5918/chat/88OkcGe2dK8IVFki"} 
+          src={process.env.REACT_APP_AI_ASSISTANT_URL} 
           className="chat-iframe"
           title="AI Assistant"
           frameBorder="0"

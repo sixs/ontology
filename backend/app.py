@@ -1,5 +1,9 @@
 import os
+from dotenv import load_dotenv
 from api import create_app
+
+# 加载.env文件
+load_dotenv()
 
 app = create_app()
 

@@ -26,6 +26,13 @@ frontend/
 - CSS Modules
 - Axios (用于HTTP请求)
 
+## 环境变量配置
+
+前端环境变量通过`frontend/webpack.config.js`中的`DefinePlugin`进行配置，不再使用`.env`文件。主要配置项包括：
+
+- `process.env.REACT_APP_BACKEND_API_URL`: 后端API地址
+- `process.env.REACT_APP_AI_ASSISTANT_URL`: AI助手地址
+
 ## 主要功能
 
 1. **本体编辑器** - 支持源码编辑和可视化展示
