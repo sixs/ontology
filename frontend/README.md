@@ -33,6 +33,15 @@ frontend/
 - `process.env.REACT_APP_BACKEND_API_URL`: 后端API地址
 - `process.env.REACT_APP_AI_ASSISTANT_URL`: AI助手地址
 
+## 开发环境启动
+
+项目支持两种方式启动开发环境：
+
+- `npm start` - 启动开发服务器
+- `npm run dev` - 启动开发服务器（与`npm start`功能相同）
+
+两种命令都会启动webpack开发服务器，并在开发模式下运行应用程序。
+
 ## 主要功能
 
 1. **本体编辑器** - 支持源码编辑和可视化展示
